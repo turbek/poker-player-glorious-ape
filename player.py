@@ -172,8 +172,8 @@ class Player:
 
     def ifpairhand(self, game_state):
         hand = self.hand(game_state)
-        hlist = ['7','8','9','10', 'J', 'Q', 'K', 'A']
-        mlist = ['6', '5']
+        hlist = ['5','6','7','8','9','10', 'J', 'Q', 'K', 'A']
+        mlist = ['4', '3', '2']
         if hand[0]['rank'] == hand[1]['rank']:
             if hand[0]['rank'] in hlist:
                 return "pairinhand"
