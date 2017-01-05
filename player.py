@@ -116,7 +116,7 @@ class Player:
             else:
                 return 0
         elif len(game_state['community_cards']) >= 3:
-            if self.if_straight(game_state) == True:
+            if self.if_straight(game_state) is True:
                 return 1000
             elif self.if_drill(game_state) == "drill":
                 # print("drill")
