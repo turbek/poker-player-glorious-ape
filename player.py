@@ -105,7 +105,7 @@ class Player:
     def betRequest(self, game_state):
         if len(game_state['community_cards']) == 0:
             if self.preflop(game_state) == "highcards":
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/4:
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/3:
                     return int(game_state['current_buy_in'])
                 else:
                     return 0
@@ -138,7 +138,7 @@ class Player:
                 return int(game_state['small_blind']*2)
             elif self.ifhighcards(game_state) == "high":
                 print("high")
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/4:
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/3:
                     return int(game_state['current_buy_in'])
                 else:
                     return 0
@@ -153,7 +153,7 @@ class Player:
         pass
 
     def preflop(self, game_state):
-        list = ['8', '9', '10', 'J', 'Q', 'K', 'A']
+        list = ['9', '10', 'J', 'Q', 'K', 'A']
         hand = self.hand(game_state)
         if self.ifpairhand(game_state) == "pairinhand":
             return "pairinhand"
