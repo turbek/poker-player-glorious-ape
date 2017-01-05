@@ -98,31 +98,31 @@ class Player:
     VERSION = "destroying team orange HAHAHAHA"
 
     def betRequest(self, game_state):
-        if len(game_state['community_cards']) == 0:
-            if self.preflop(game_state) == "highcards" or "pairinhand":
-                return 20
-        elif len(game_state['community_cards']) > 3:
-            if self.if_drill(game_state) == "drill":
-                # print("drill")
-                return 1000
-            elif self.two_pairs(game_state) == "twopair":
-                # print("two pairs")
-                return 1000
-            elif self.ifpair(game_state) == "pair":
-                # print("pair")
-                return 1000
-            elif self.ifpairhand(game_state) == "pairinhand":
-                # print("pairinhand")
-                return 1000
-            elif self.ifhighcards(game_state) == "high":
-                # print("high")
-                return int(self.player(game_state)['stack'])/2
-            # elif self.ifhighcards(game_state) == "10":
-            #     print("10")
-            #     return 200
-            else:
-                # print("nothing")
-                return 0
+        # if len(game_state['community_cards']) == 0:
+        #     if self.preflop(game_state) == "highcards" or "pairinhand":
+        #         return 20
+        # elif len(game_state['community_cards']) > 3:
+        if self.if_drill(game_state) == "drill":
+            # print("drill")
+            return 1000
+        elif self.two_pairs(game_state) == "twopair":
+            # print("two pairs")
+            return 1000
+        elif self.ifpair(game_state) == "pair":
+            # print("pair")
+            return 1000
+        elif self.ifpairhand(game_state) == "pairinhand":
+            # print("pairinhand")
+            return 1000
+        elif self.ifhighcards(game_state) == "high":
+            # print("high")
+            return int(self.player(game_state)['stack'])/2
+        # elif self.ifhighcards(game_state) == "10":
+        #     print("10")
+        #     return 200
+        else:
+            # print("nothing")
+            return 0
 
 
 
