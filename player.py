@@ -62,7 +62,7 @@
 #                 },
 #                 {
 #                     "rank": "10",
-#                     "suit": "spades"
+#                     "suit": "hearts"
 #                 }
 #             ]
 #         },
@@ -78,7 +78,7 @@
 #     "community_cards": [                            # Finally the array of community cards.
 #         {
 #             "rank": "8",
-#             "suit": "spades"
+#             "suit": "hearts"
 #         },
 #         {
 #             "rank": "9",
@@ -86,16 +86,16 @@
 #         },
 #         {
 #             "rank": "A",
+#             "suit": "hearts"
+#         },
+#         {
+#             "rank": "Q",
+#             "suit": "clubs"
+#         },
+#         {
+#             "rank": "K",
 #             "suit": "clubs"
 #         }
-#         # {
-#         #     "rank": "Q",
-#         #     "suit": "clubs"
-#         # },
-#         # {
-#         #     "rank": "K",
-#         #     "suit": "clubs"
-#         # }
 #     ]
 # }
 
@@ -306,6 +306,29 @@ class Player:
             return True
 
         return False
+
+    def is_flush(self, game_state):
+        card_suits = []
+        list_of_cards = self.community_cards(game_state)
+        cards_in_hands = self.hand(game_state)
+        list_of_cards.extend(cards_in_hands)
+        print list_of_cards
+
+        for card in list_of_cards:
+            card_suits.append(card['suit'])
+
+        print card_suits
+        if card_suits.count('spades') == 5:
+            return True
+        elif card_suits.count('diamonds') == 5:
+            return True
+        elif card_suits.count('hearts') == 5:
+            return True
+        elif card_suits.count('clubs') == 5:
+            return True
+        else:
+            return False
+
 
 
 
