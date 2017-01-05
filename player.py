@@ -105,7 +105,7 @@ class Player:
     def betRequest(self, game_state):
         if len(game_state['community_cards']) == 0:
             if self.preflop(game_state) == "highcards":
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/3:
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/2:
                     return int(game_state['current_buy_in'])
                 else:
                     return 0
