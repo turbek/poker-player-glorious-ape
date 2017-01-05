@@ -61,7 +61,7 @@
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "A",
+#                     "rank": "10",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -81,11 +81,14 @@
 #             "suit": "spades"
 #         },
 #         {
+
 #             "rank": "A",
+
+
 #             "suit": "hearts"
 #         },
 #         {
-#             "rank": "10",
+#             "rank": "4",
 #             "suit": "clubs"
 #         }
 #     ]
@@ -95,16 +98,58 @@ class Player:
     VERSION = "Tami joined the dark side!"
 
     def betRequest(self, game_state):
-        for player in game_state['players']:
-            if player['name'] == 'Glorious Ape':
-                if player['hole_cards'][0]['rank'] == player['hole_cards'][1]['rank']:
-                    return 1000
-                else:
-                    return 0
+        if self.if_drill(game_state) == "drill":
+           # print("asd")
+            return 1000
+        elif self.ifpair(game_state) == "pair":
+            #print("pair")
+            return 1000
+        elif self.ifhighcards(game_state) == "high":
+           # print("high")
+            return 1000
+        # elif self.ifhighcards(game_state) == "10":
+        #     print("10")
+        #     return 200
+        else:
+            #print("nothing")
+            return 0
+
 
 
     def showdown(self, game_state):
         pass
+
+    def ifhighcards(self, game_state):
+        high = ['J', 'Q', 'K', 'A']
+        hand = self.hand(game_state)
+        if hand[0]['rank'] in high and hand[1]['rank'] in high:
+            return "high"
+        else:
+            return "fold"
+
+    def ifpair(self, game_state):
+        hand = self.hand(game_state)
+        if hand[0]['rank'] == hand[1]['rank']:
+            return "pair"
+        else:
+            return "fold"
+
+    def if_drill(self, game_state):
+        hand = self.hand(game_state)
+        comm = self.community_cards(game_state)
+        list = []
+        for i in comm:
+            list.append(i['rank'])
+        for i in list:
+            if hand[0]['rank'] == i:
+                return 'drill'
+            else:
+                return 'fold'
+
+
+
+
+
 
     def player(self, game_state):
         for player in game_state['players']:
@@ -133,6 +178,6 @@ class Player:
 
 
 
-
+#
 # x = Player()
 # x.two_pairs(gamestate)
