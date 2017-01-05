@@ -61,7 +61,7 @@
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "K",
+#                     "rank": "Q",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -96,7 +96,6 @@
 #             "rank": "K",
 #             "suit": "clubs"
 #         }
-#
 #     ]
 # }
 
@@ -106,9 +105,10 @@ class Player:
     def betRequest(self, game_state):
         if len(game_state['community_cards']) == 0:
             if self.preflop(game_state) == "highcards":
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
-                    return int(game_state['current_buy_in'])
-                return int(game_state['current_buy_in'])
+                # if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
+                #     return int(game_state['current_buy_in'])
+                return 0
+                # return int(game_state['current_buy_in'])
             elif self.preflop(game_state) == "pairinhand":
                 return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
             elif self.preflop(game_state) == "fold":
@@ -131,13 +131,17 @@ class Player:
                 # print("pairinhand")
                 return 1000
             elif self.ifhighcards(game_state) == "high":
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
-                    return int(game_state['current_buy_in'])
+                return 0
+                # if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
+                #     print(int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5)
+                #     print(int(game_state['current_buy_in']))
+                #     return int(game_state['current_buy_in'])
             # elif self.ifhighcards(game_state) == "10":
             #     print("10")
             #     return 200
             else:
                 # print("nothing")
+                # print("asd")
                 return 0
 
 
@@ -300,7 +304,7 @@ class Player:
 
 
 
-
+#
 #
 # x = Player()
 # x.betRequest(gamestate)
