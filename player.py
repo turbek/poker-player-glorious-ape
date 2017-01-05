@@ -100,7 +100,7 @@ class Player:
     def betRequest(self, game_state):
         if len(game_state['community_cards']) == 0:
             if self.preflop(game_state) == "highcards" or "pairinhand":
-                return int(game_state['current_buy_in'])*1.5
+                return 20
         elif len(game_state['community_cards']) > 3:
             if self.if_drill(game_state) == "drill":
                 # print("drill")
