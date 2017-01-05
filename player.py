@@ -57,11 +57,11 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "K",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "8",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "K",
+#                     "rank": "4",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -76,53 +76,55 @@
 #         }
 #     ],
 #     "community_cards": [                            # Finally the array of community cards.
-#         {
-#             "rank": "10",
-#             "suit": "spades"
-#         },
-#         {
 #
-#             "rank": "A",
-#
-#
-#             "suit": "hearts"
-#         },
-#         {
-#             "rank": "8",
-#             "suit": "clubs"
-#         }
 #     ]
 # }
-
+# {
+#     "rank": "10",
+#     "suit": "spades"
+# },
+# {
+#
+#     "rank": "A",
+#     "suit": "hearts"
+# },
+# {
+#     "rank": "8",
+#     "suit": "clubs"
+# }
 class Player:
     VERSION = "destroying team orange HAHAHAHA"
 
     def betRequest(self, game_state):
-        # if len(game_state['community_cards']) == 0:
-        #     if self.preflop(game_state) == "highcards" or "pairinhand":
-        #         return 20
-        # elif len(game_state['community_cards']) > 3:
-        if self.if_drill(game_state) == "drill":
-            # print("drill")
-            return 1000
-        elif self.two_pairs(game_state) == "twopair":
-            # print("two pairs")
-            return 1000
-        elif self.ifpair(game_state) == "pair":
-            # print("pair")
-            return 1000
-        elif self.ifpairhand(game_state) == "pairinhand":
-            # print("pairinhand")
-            return 1000
-        elif self.ifhighcards(game_state) == "high":
-            # print("high")
-            return int(self.player(game_state)['stack'])/2
-        # elif self.ifhighcards(game_state) == "10":
-        #     print("10")
-        #     return 200
-        else:
-            # print("nothing")
-            return 0
+        if len(game_state['community_cards']) == 0:
+            if self.preflop(game_state) == "highcards" or self.preflop(game_state) == "pairinhand":
+                return 20
+            elif self.preflop(game_state) == "fold":
+                return 0
+            else:
+                return 0
+        elif len(game_state['community_cards']) > 3:
+            if self.if_drill(game_state) == "drill":
+                # print("drill")
+                return 1000
+            elif self.two_pairs(game_state) == "twopair":
+                # print("two pairs")
+                return 1000
+            elif self.ifpair(game_state) == "pair":
+                # print("pair")
+                return 1000
+            elif self.ifpairhand(game_state) == "pairinhand":
+                # print("pairinhand")
+                return 1000
+            elif self.ifhighcards(game_state) == "high":
+                # print("high")
+                return int(self.player(game_state)['stack'])/2
+            # elif self.ifhighcards(game_state) == "10":
+            #     print("10")
+            #     return 200
+            else:
+                # print("nothing")
+                return 0
 
 
 
