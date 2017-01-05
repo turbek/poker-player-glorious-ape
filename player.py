@@ -57,11 +57,11 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "9",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "A",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "Q",
+#                     "rank": "7",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -76,26 +76,26 @@
 #         }
 #     ],
 #     "community_cards": [                            # Finally the array of community cards.
-#         {
-#             "rank": "3",
-#             "suit": "spades"
-#         },
-#         {
-#             "rank": "J",
-#             "suit": "hearts"
-#         },
-#         {
-#             "rank": "5",
-#             "suit": "clubs"
-#         },
-#         {
-#             "rank": "Q",
-#             "suit": "clubs"
-#         },
-#         {
-#             "rank": "K",
-#             "suit": "clubs"
-#         }
+        # {
+        #     "rank": "3",
+        #     "suit": "spades"
+        # },
+        # {
+        #     "rank": "J",
+        #     "suit": "hearts"
+        # },
+        # {
+        #     "rank": "5",
+        #     "suit": "clubs"
+        # },
+        # {
+        #     "rank": "Q",
+        #     "suit": "clubs"
+        # },
+        # {
+        #     "rank": "K",
+        #     "suit": "clubs"
+        # }
 #     ]
 # }
 
@@ -166,7 +166,10 @@ class Player:
     def ifpairhand(self, game_state):
         hand = self.hand(game_state)
         if hand[0]['rank'] == hand[1]['rank']:
-            return "pairinhand"
+            if int(hand[0]['rank']) > 9:
+                return "pairinhand"
+            else:
+                return "fold"
         else:
             return "fold"
 
