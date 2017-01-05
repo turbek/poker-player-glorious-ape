@@ -57,7 +57,7 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "A",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "10",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
@@ -81,7 +81,7 @@
 #             "suit": "spades"
 #         },
 #         {
-#             "rank": "10",
+#             "rank": "A",
 #             "suit": "hearts"
 #         },
 #         {
@@ -118,8 +118,21 @@ class Player:
     def community_cards(self, game_state):
         return game_state['community_cards']
 
+    def two_pairs(self, game_state):
+        hand = self.hand(game_state)
+        comm_card = self.community_cards(game_state)
+        if hand[0]['rank'] != hand[1]['rank']:
+            comm_card_values = set([])
+            for card in comm_card:
+                comm_card_values.add(card["rank"])
+            if hand[0]['rank'] in comm_card_values and hand[1]['rank'] in comm_card_values:
+                return True
+            else:
+                return False
+
+
 
 
 
 # x = Player()
-# x.betRequest(gamestate)
+# x.two_pairs(gamestate)
