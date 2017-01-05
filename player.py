@@ -121,12 +121,14 @@ class Player:
             # if self.if_straight(game_state):
             #     print("sor")
             #     return 1000
-            if self.if_drill(game_state) == "drill":
+            if self.is_flush(game_state):
+                return 10000
+            elif self.if_drill(game_state) == "drill":
                 print("drill")
-                return 1000
+                return 10000
             elif self.two_pairs(game_state) == "twopair":
                 print("two pairs")
-                return 1000
+                return 10000
             elif self.ifpair(game_state) == "pair":
                 print("pair")
                 return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
@@ -239,19 +241,15 @@ class Player:
             else:
                 return "fold"
 
-
-
     def is_flush(self, game_state):
         card_suits = []
         list_of_cards = self.community_cards(game_state)
         cards_in_hands = self.hand(game_state)
         list_of_cards.extend(cards_in_hands)
-        print list_of_cards
 
         for card in list_of_cards:
             card_suits.append(card['suit'])
 
-        print card_suits
         if card_suits.count('spades') == 5:
             return True
         elif card_suits.count('diamonds') == 5:
