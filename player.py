@@ -106,6 +106,15 @@ class Player:
     def showdown(self, game_state):
         pass
 
+    def player(self, game_state):
+        for player in game_state['players']:
+            if player['name'] == 'Glorious Ape':
+                return player
+
+    def hand(self, game_state):
+        player = self.player(game_state)
+        return player['hole_cards']
+
 
 # x = Player()
 # x.betRequest(gamestate)
