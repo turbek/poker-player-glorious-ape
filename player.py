@@ -57,7 +57,7 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "A",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "9",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
@@ -77,16 +77,23 @@
 #     ],
 #     "community_cards": [                            # Finally the array of community cards.
 #         {
-#             "rank": "J",
+#             "rank": "3",
 #             "suit": "spades"
 #         },
 #         {
-#
-#             "rank": "3",
+#             "rank": "J",
 #             "suit": "hearts"
 #         },
 #         {
-#             "rank": "7",
+#             "rank": "5",
+#             "suit": "clubs"
+#         },
+#         {
+#             "rank": "Q",
+#             "suit": "clubs"
+#         },
+#         {
+#             "rank": "K",
 #             "suit": "clubs"
 #         }
 #     ]
@@ -109,7 +116,9 @@ class Player:
             else:
                 return 0
         elif len(game_state['community_cards']) >= 3:
-            if self.if_drill(game_state) == "drill":
+            if self.if_straight(game_state):
+                return 1000
+            elif self.if_drill(game_state) == "drill":
                 # print("drill")
                 return 1000
             elif self.two_pairs(game_state) == "twopair":
@@ -218,6 +227,79 @@ class Player:
                 return "twopair"
             else:
                 return "fold"
+
+    def if_straight(self, game_state):
+        dict_cards = {'J' : 11, 'Q' : 12, 'K' : 13, 'A' : 14}
+        card_values = set([])
+        card_list = self.community_cards(game_state)
+
+        for card in self.hand(game_state):
+                card_list.append(card)
+
+        for card in card_list:
+            if card['rank'] in dict_cards:
+                card_values.add(int(dict_cards.get(card['rank'])))
+            else:
+                card_values.add(int(card['rank']))
+
+        all_the_cards = sorted(card_values)
+
+        counter = 0
+        i = 0
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+            if counter == 5:
+                return True
+        else:
+            counter = 0
+            i = 1
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+        if counter == 5:
+            return True
+        else:
+            counter = 0
+            i = 2
+            if all_the_cards[i] +1 == all_the_cards[i+1]:
+                counter += 1
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+            if counter == 5:
+                return True
+        else:
+            counter = 0
+            i = 3
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+            if counter == 5:
+                return True
+        else:
+            counter = 0
+            i = 4
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+            if counter == 5:
+                return True
+        else:
+            counter = 0
+            i = 5
+        if all_the_cards[i] +1 == all_the_cards[i+1]:
+            counter += 1
+            if counter == 5:
+                return True
+        else:
+            counter = 0
+            i = 6
+
+        if counter == 5:
+            return True
+
+        return False
+
+
+
+
+
 
 
 
