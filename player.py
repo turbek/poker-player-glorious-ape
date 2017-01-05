@@ -57,11 +57,11 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "10",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "K",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "8",
+#                     "rank": "Q",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -101,7 +101,7 @@ class Player:
         if self.if_drill(game_state) == "drill":
             # print("drill")
             return 1000
-        elif self.two_pairs(game_state) == True:
+        elif self.two_pairs(game_state) == "twopair":
             # print("two pairs")
             return 1000
         elif self.ifpair(game_state) == "pair":
@@ -112,12 +112,12 @@ class Player:
             return 1000
         elif self.ifhighcards(game_state) == "high":
             # print("high")
-            return 1000
+            return int(self.player(game_state)['stack'])/2
         # elif self.ifhighcards(game_state) == "10":
         #     print("10")
         #     return 200
         else:
-            print("nothing")
+            # print("nothing")
             return 0
 
 
@@ -191,9 +191,9 @@ class Player:
             for card in comm_card:
                 comm_card_values.add(card["rank"])
             if hand[0]['rank'] in comm_card_values and hand[1]['rank'] in comm_card_values:
-                return True
+                return "twopair"
             else:
-                return False
+                return "fold"
 
 
 
