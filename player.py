@@ -130,7 +130,10 @@ class Player:
                 return 1000
             elif self.ifpairhand(game_state) == "pairinhand":
                 print("pairinhand")
-                return 1000
+                return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
+            elif self.ifpairhand(game_state) == "mediumhand":
+                print("mediumhand")
+                return int(game_state['small_blind']*2)
             elif self.ifhighcards(game_state) == "high":
                 print("high")
                 if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/4:
@@ -167,10 +170,13 @@ class Player:
 
     def ifpairhand(self, game_state):
         hand = self.hand(game_state)
-        list = ['10', 'J', 'Q', 'K', 'A']
+        hlist = ['10', 'J', 'Q', 'K', 'A']
+        mlist = ['9', '8', '7', '6', '5']
         if hand[0]['rank'] == hand[1]['rank']:
-            if hand[0]['rank'] in list:
+            if hand[0]['rank'] in hlist:
                 return "pairinhand"
+            elif hand[0]['rank'] in mlist:
+                return "mediumhand"
             else:
                 return "fold"
         else:
