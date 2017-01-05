@@ -163,7 +163,7 @@ class Player:
             return "fold"
 
     def ifhighcards(self, game_state):
-        high = ['J', 'Q', 'K', 'A']
+        high = ['10', 'J', 'Q', 'K', 'A']
         hand = self.hand(game_state)
         if hand[0]['rank'] in high and hand[1]['rank'] in high:
             return "high"
