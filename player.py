@@ -57,11 +57,11 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "8",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "10",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "5",
+#                     "rank": "10",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -81,11 +81,11 @@
 #             "suit": "spades"
 #         },
 #         {
-#             "rank": "10",
+#             "rank": "K",
 #             "suit": "hearts"
 #         },
 #         {
-#             "rank": "10",
+#             "rank": "4",
 #             "suit": "clubs"
 #         }
 #     ]
@@ -95,16 +95,20 @@ class Player:
     VERSION = "Tami joined the dark side!"
 
     def betRequest(self, game_state):
-        if self.ifpair(game_state) == "pair":
+        if self.if_drill(game_state) == "drill":
+           # print("asd")
+            return 1000
+        elif self.ifpair(game_state) == "pair":
+            #print("pair")
             return 1000
         elif self.ifhighcards(game_state) == "high":
+           # print("high")
             return 1000
         # elif self.ifhighcards(game_state) == "10":
         #     print("10")
         #     return 200
-        elif self.ifhighcards(game_state) == "fold":
-            return 0
         else:
+            #print("nothing")
             return 0
 
 
@@ -127,6 +131,23 @@ class Player:
         else:
             return "fold"
 
+    def if_drill(self, game_state):
+        hand = self.hand(game_state)
+        comm = self.community_cards(game_state)
+        list = []
+        for i in comm:
+            list.append(i['rank'])
+        for i in list:
+            if hand[0]['rank'] == i:
+                return 'drill'
+            else:
+                return 'fold'
+
+
+
+
+
+
     def player(self, game_state):
         for player in game_state['players']:
             if player['name'] == 'Glorious Ape':
@@ -141,6 +162,6 @@ class Player:
 
 
 
-
+#
 # x = Player()
 # x.betRequest(gamestate)
