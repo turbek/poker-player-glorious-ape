@@ -138,7 +138,7 @@ class Player:
                 return int(game_state['small_blind']*2)
             elif self.ifhighcards(game_state) == "high":
                 print("high")
-                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/3:
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/4:
                     return int(game_state['current_buy_in'])
                 else:
                     return 0
@@ -153,7 +153,7 @@ class Player:
         pass
 
     def preflop(self, game_state):
-        list = ['9', '10', 'J', 'Q', 'K', 'A']
+        list = ['10', 'J', 'Q', 'K', 'A']
         hand = self.hand(game_state)
         if self.ifpairhand(game_state) == "pairinhand":
             return "pairinhand"
@@ -239,79 +239,32 @@ class Player:
             else:
                 return "fold"
 
-    def if_straight(self, game_state):
-        dict_cards = {'J' : 11, 'Q' : 12, 'K' : 13, 'A' : 14}
-        card_values = set([])
-        card_list = self.community_cards(game_state)
-
-        for card in self.hand(game_state):
-                card_list.append(card)
-
-        for card in card_list:
-            if card['rank'] in dict_cards:
-                card_values.add(int(dict_cards.get(card['rank'])))
-            else:
-                card_values.add(int(card['rank']))
-
-        all_the_cards = sorted(card_values)
-
-        counter = 0
-        i = 0
-        if all_the_cards[i] +1 == all_the_cards[i+1]:
-            counter += 1
-            if counter == 5:
-                return True
-        else:
-            counter = 0
-            i = 1
-        if all_the_cards[i] + 1 == all_the_cards[i+1]:
-            counter += 1
-        if counter == 5:
-            return True
-        else:
-            counter = 0
-            i = 2
-            if all_the_cards[i] +1 == all_the_cards[i+1]:
-                counter += 1
-        if all_the_cards[i] +1 == all_the_cards[i+1]:
-            counter += 1
-            if counter == 5:
-                return True
-        else:
-            counter = 0
-            i = 3
-        if all_the_cards[i] +1 == all_the_cards[i+1]:
-            counter += 1
-            if counter == 5:
-                return True
-        else:
-            counter = 0
-            i = 4
-        if all_the_cards[i] +1 == all_the_cards[i+1]:
-            counter += 1
-            if counter == 5:
-                return True
-        else:
-            counter = 0
-            i = 5
-        if all_the_cards[i] +1 == all_the_cards[i+1]:
-            counter += 1
-            if counter == 5:
-                return True
-        else:
-            counter = 0
-            i = 6
-
-        if counter == 5:
-            return True
-
-        return False
-
-
-
-
-
-
+    # def if_straight(self, game_state):
+    #     hand = self.hand(game_state)
+    #     comm_card = self.community_cards(game_state)
+    #     list = []
+    #     for i in hand:
+    #         if i[0]['rank'] == 'J':
+    #             list.append('11')
+    #         elif i[0]['rank'] == 'Q':
+    #             list.append('12')
+    #         elif i[0]['rank'] == 'K':
+    #             list.append('13')
+    #         elif i[0]['rank'] == 'A':
+    #             list.append('14')
+    #         else:
+    #             list.append(i[0]['rank'])
+    #     for i in hand:
+    #         if i[1]['rank'] == 'J':
+    #             list.append('11')
+    #         elif i[1]['rank'] == 'Q':
+    #             list.append('12')
+    #         elif i[1]['rank'] == 'K':
+    #             list.append('13')
+    #         elif i[1]['rank'] == 'A':
+    #             list.append('14')
+    #         else:
+    #             list.append(i[0]['rank'])
 
 
 
