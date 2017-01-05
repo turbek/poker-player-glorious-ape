@@ -57,11 +57,11 @@
 #             "hole_cards": [                         # The cards of the player. This is only visible for your own player
 #                                                     #     except after showdown, when cards revealed are also included.
 #                 {
-#                     "rank": "A",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
+#                     "rank": "8",                    # Rank of the card. Possible values are numbers 2-10 and J,Q,K,A
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "A",
+#                     "rank": "5",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -95,16 +95,35 @@ class Player:
     VERSION = "Tami joined the dark side!"
 
     def betRequest(self, game_state):
-        for player in game_state['players']:
-            if player['name'] == 'Glorious Ape':
-                if player['hole_cards'][0]['rank'] == player['hole_cards'][1]['rank']:
-                    return 1000
-                else:
-                    return 0
+        if self.ifpair(game_state) == "pair":
+            return 1000
+        elif self.ifhighcards(game_state) == "high":
+            return 1000
+        # elif self.ifhighcards(game_state) == "10":
+        #     print("10")
+        #     return 200
+        elif self.ifhighcards(game_state) == "fold":
+            return 0
+
 
 
     def showdown(self, game_state):
         pass
+
+    def ifhighcards(self, game_state):
+        high = ['J', 'Q', 'K', 'A']
+        hand = self.hand(game_state)
+        if hand[0]['rank'] in high and hand[1]['rank'] in high:
+            return "high"
+        else:
+            return "fold"
+
+    def ifpair(self, game_state):
+        hand = self.hand(game_state)
+        if hand[0]['rank'] == hand[1]['rank']:
+            return "pair"
+        else:
+            return "fold"
 
     def player(self, game_state):
         for player in game_state['players']:
