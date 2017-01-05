@@ -95,10 +95,10 @@ class Player:
     VERSION = "Tami joined the dark side!"
 
     def betRequest(self, game_state):
-        # for player in game_state['players']:
-        #     if player['name'] == 'Glorious Ape':
-        #         if player['hole_cards'][0]['rank'] == player['hole_cards'][1]['rank']:
-        return 1000
+        for player in game_state['players']:
+            if player['name'] == 'Glorious Ape':
+                if player['hole_cards'][0]['rank'] == player['hole_cards'][1]['rank']:
+                    return 1000
 
 
     def showdown(self, game_state):
