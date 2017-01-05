@@ -129,7 +129,7 @@ class Player:
                 return 1000
             elif self.ifpair(game_state) == "pair":
                 print("pair")
-                return 1000
+                return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
             elif self.ifpairhand(game_state) == "pairinhand":
                 print("pairinhand")
                 return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
