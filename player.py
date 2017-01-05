@@ -135,9 +135,6 @@ class Player:
                     return int(game_state['current_buy_in'])
                 else:
                     return 0
-            elif self.ifhighcards(game_state) == "10":
-                print("10")
-                return 200
             else:
                 # print("nothing")
                 # print("asd")
