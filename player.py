@@ -96,19 +96,22 @@ class Player:
 
     def betRequest(self, game_state):
         if self.if_drill(game_state) == "drill":
-           # print("asd")
+            # print("drill")
             return 1000
         elif self.ifpair(game_state) == "pair":
-            #print("pair")
+            # print("pair")
+            return 1000
+        elif self.ifpairhand(game_state) == "pairinhand":
+            # print("pairinhand")
             return 1000
         elif self.ifhighcards(game_state) == "high":
-           # print("high")
+            # print("high")
             return 1000
         # elif self.ifhighcards(game_state) == "10":
         #     print("10")
         #     return 200
         else:
-            #print("nothing")
+            # print("nothing")
             return 0
 
 
@@ -124,12 +127,23 @@ class Player:
         else:
             return "fold"
 
-    def ifpair(self, game_state):
+    def ifpairhand(self, game_state):
         hand = self.hand(game_state)
         if hand[0]['rank'] == hand[1]['rank']:
-            return "pair"
+            return "pairinhand"
         else:
             return "fold"
+
+    def ifpair(self, game_state):
+        hand = self.hand(game_state)
+        comm = self.community_cards(game_state)
+        list = []
+        for i in comm:
+            list.append(i['rank'])
+        for i in list:
+            if hand[0]["rank"] == i or hand[1]["rank"] == i:
+                return 'pair'
+
 
     def if_drill(self, game_state):
         hand = self.hand(game_state)
@@ -137,16 +151,19 @@ class Player:
         list = []
         for i in comm:
             list.append(i['rank'])
+        count = 0
+        count2 = 0
         for i in list:
             if hand[0]['rank'] == i:
-                return 'drill'
-            else:
-                return 'fold'
-
-
-
-
-
+                count += 1
+        if self.ifpairhand(game_state) == "pairinhand":
+            for i in list:
+                if hand[0]['rank'] == i:
+                    count2 += 1
+        if count == 2 or count2 == 1:
+            return 'drill'
+        else:
+            return 'fold'
 
     def player(self, game_state):
         for player in game_state['players']:
@@ -162,6 +179,6 @@ class Player:
 
 
 
-#
+
 # x = Player()
 # x.betRequest(gamestate)
