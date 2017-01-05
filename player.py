@@ -306,6 +306,6 @@ class Player:
 
 
 #
-
-x = Player()
-x.betRequest(gamestate)
+#
+# x = Player()
+# x.betRequest(gamestate)
