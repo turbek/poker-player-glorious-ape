@@ -61,7 +61,7 @@
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "10",
+#                     "rank": "K",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -96,35 +96,64 @@
 #             "rank": "K",
 #             "suit": "clubs"
 #         }
+#
 #     ]
 # }
 
 class Player:
-    VERSION = "Tami joined the dark side!"
+    VERSION = "please work, please"
 
     def betRequest(self, game_state):
-        if self.if_drill(game_state) == "drill":
-           # print("asd")
-            return 1000
-        elif self.two_pairs(game_state) == True:
-            return 1000
-        elif self.ifpair(game_state) == "pair":
-            #print("pair")
-            return 1000
-        elif self.ifhighcards(game_state) == "high":
-           # print("high")
-            return 1000
-        # elif self.ifhighcards(game_state) == "10":
-        #     print("10")
-        #     return 200
-        else:
-            #print("nothing")
-            return 0
+        if len(game_state['community_cards']) == 0:
+            if self.preflop(game_state) == "highcards":
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
+                    return int(game_state['current_buy_in'])
+                return int(game_state['current_buy_in'])
+            elif self.preflop(game_state) == "pairinhand":
+                return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
+            elif self.preflop(game_state) == "fold":
+                return 0
+            else:
+                return 0
+        elif len(game_state['community_cards']) >= 3:
+            if self.if_straight(game_state) == True:
+                return 1000
+            elif self.if_drill(game_state) == "drill":
+                # print("drill")
+                return 1000
+            elif self.two_pairs(game_state) == "twopair":
+                # print("two pairs")
+                return 1000
+            elif self.ifpair(game_state) == "pair":
+                # print("pair")
+                return 1000
+            elif self.ifpairhand(game_state) == "pairinhand":
+                # print("pairinhand")
+                return 1000
+            elif self.ifhighcards(game_state) == "high":
+                if int(game_state['current_buy_in']) <= int(self.player(game_state)['stack'])/5:
+                    return int(game_state['current_buy_in'])
+            # elif self.ifhighcards(game_state) == "10":
+            #     print("10")
+            #     return 200
+            else:
+                # print("nothing")
+                return 0
 
 
 
     def showdown(self, game_state):
         pass
+
+    def preflop(self, game_state):
+        list = ['10', 'J', 'Q', 'K', 'A']
+        hand = self.hand(game_state)
+        if self.ifpairhand(game_state) == "pairinhand":
+            return "pairinhand"
+        elif hand[0]['rank'] in list and hand[1]['rank'] in list:
+            return "highcards"
+        else:
+            return "fold"
 
     def ifhighcards(self, game_state):
         high = ['J', 'Q', 'K', 'A']
@@ -134,12 +163,23 @@ class Player:
         else:
             return "fold"
 
-    def ifpair(self, game_state):
+    def ifpairhand(self, game_state):
         hand = self.hand(game_state)
         if hand[0]['rank'] == hand[1]['rank']:
-            return "pair"
+            return "pairinhand"
         else:
             return "fold"
+
+    def ifpair(self, game_state):
+        hand = self.hand(game_state)
+        comm = self.community_cards(game_state)
+        list = []
+        for i in comm:
+            list.append(i['rank'])
+        for i in list:
+            if hand[0]["rank"] == i or hand[1]["rank"] == i:
+                return 'pair'
+
 
     def if_drill(self, game_state):
         hand = self.hand(game_state)
@@ -147,16 +187,19 @@ class Player:
         list = []
         for i in comm:
             list.append(i['rank'])
+        count = 0
+        count2 = 0
         for i in list:
             if hand[0]['rank'] == i:
-                return 'drill'
-            else:
-                return 'fold'
-
-
-
-
-
+                count += 1
+        if self.ifpairhand(game_state) == "pairinhand":
+            for i in list:
+                if hand[0]['rank'] == i:
+                    count2 += 1
+        if count == 2 or count2 == 1:
+            return 'drill'
+        else:
+            return 'fold'
 
     def player(self, game_state):
         for player in game_state['players']:
@@ -178,9 +221,9 @@ class Player:
             for card in comm_card:
                 comm_card_values.add(card["rank"])
             if hand[0]['rank'] in comm_card_values and hand[1]['rank'] in comm_card_values:
-                return True
+                return "twopair"
             else:
-                return False
+                return "fold"
 
     def if_straight(self, game_state):
         dict_cards = {'J' : 11, 'Q' : 12, 'K' : 13, 'A' : 14}
