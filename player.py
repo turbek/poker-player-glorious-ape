@@ -101,6 +101,8 @@ class Player:
         if self.if_drill(game_state) == "drill":
            # print("asd")
             return 1000
+        elif self.two_pairs(game_state) == True:
+            return 1000
         elif self.ifpair(game_state) == "pair":
             #print("pair")
             return 1000
