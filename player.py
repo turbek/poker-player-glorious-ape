@@ -93,17 +93,17 @@
 #     "suit": "clubs"
 # }
 class Player:
-    VERSION = "destroying team orange HAHAHAHA"
+    VERSION = "please work, please"
 
     def betRequest(self, game_state):
         if len(game_state['community_cards']) == 0:
-            if self.preflop(game_state) == "highcards" or self.preflop(game_state) == "pairinhand":
-                return int(game_state['current_buy_in']) + 10
+            if self.preflop(game_state) == "highcards":
+                return int(game_state['current_buy_in'])
+            elif self.preflop(game_state) == "pairinhand":
+                return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
             elif self.preflop(game_state) == "fold":
-                print("elif")
                 return 0
             else:
-                print("else")
                 return 0
         elif len(game_state['community_cards']) >= 3:
             if self.if_drill(game_state) == "drill":
