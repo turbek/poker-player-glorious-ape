@@ -77,11 +77,11 @@
 #     ],
 #     "community_cards": [                            # Finally the array of community cards.
 #         {
-#             "rank": "8",
+#             "rank": "9",
 #             "suit": "hearts"
 #         },
 #         {
-#             "rank": "9",
+#             "rank": "J",
 #             "suit": "hearts"
 #         },
 #         {
@@ -118,6 +118,7 @@ class Player:
             else:
                 return 0
         elif len(game_state['community_cards']) >= 3:
+            # print(self.if_straight(game_state))
             # if self.if_straight(game_state):
             #     print("sor")
             #     return 1000
@@ -155,7 +156,7 @@ class Player:
         pass
 
     def preflop(self, game_state):
-        list = ['8','9', '10', 'J', 'Q', 'K', 'A']
+        list = ['7','8','9','10', 'J', 'Q', 'K', 'A']
         hand = self.hand(game_state)
         if self.ifpairhand(game_state) == "pairinhand":
             return "pairinhand"
@@ -261,50 +262,47 @@ class Player:
         else:
             return False
 
-
-
-
-
-
-
-
     # def if_straight(self, game_state):
     #     hand = self.hand(game_state)
     #     comm_card = self.community_cards(game_state)
     #     list = []
     #     for i in hand:
-    #         if i[0]['rank'] == 'J':
-    #             list.append('11')
-    #         elif i[0]['rank'] == 'Q':
-    #             list.append('12')
-    #         elif i[0]['rank'] == 'K':
-    #             list.append('13')
-    #         elif i[0]['rank'] == 'A':
-    #             list.append('14')
+    #         if i['rank'] == 'J':
+    #             list.append(11)
+    #         elif i['rank'] == 'Q':
+    #             list.append(12)
+    #         elif i['rank'] == 'K':
+    #             list.append(13)
+    #         elif i['rank'] == 'A':
+    #             list.append(14)
     #         else:
-    #             list.append(i[0]['rank'])
-    #     for i in hand:
-    #         if i[1]['rank'] == 'J':
-    #             list.append('11')
-    #         elif i[1]['rank'] == 'Q':
-    #             list.append('12')
-    #         elif i[1]['rank'] == 'K':
-    #             list.append('13')
-    #         elif i[1]['rank'] == 'A':
-    #             list.append('14')
+    #             list.append(int(i['rank']))
+    #     for i in comm_card:
+    #         if i['rank'] == 'J':
+    #             list.append(11)
+    #         elif i['rank'] == 'Q':
+    #             list.append(12)
+    #         elif i['rank'] == 'K':
+    #             list.append(13)
+    #         elif i['rank'] == 'A':
+    #             list.append(14)
     #         else:
-    #             list.append(i[1]['rank'])
-    #     for i in hand:
-    #         if i[1]['rank'] == 'J':
-    #             list.append('11')
-    #         elif i[1]['rank'] == 'Q':
-    #             list.append('12')
-    #         elif i[1]['rank'] == 'K':
-    #             list.append('13')
-    #         elif i[1]['rank'] == 'A':
-    #             list.append('14')
+    #             list.append(int(i['rank']))
+    #     list = set(list)
+    #     list = sorted(list)
+    #     listnum = len(list)
+    #     count = -1
+    #     sorcount = 0
+    #     print(list)
+    #     for i in list:
+    #         count += 1
+    #         if i+1 == list[count+1]:
+    #             sorcount += 1
     #         else:
-    #             list.append(i[1]['rank'])
+    #             count = 0
+    #     print(count)
+    #     return list
+
 
 
 
