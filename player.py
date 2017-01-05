@@ -153,7 +153,7 @@ class Player:
         pass
 
     def preflop(self, game_state):
-        list = ['10', 'J', 'Q', 'K', 'A']
+        list = ['8', '9', '10', 'J', 'Q', 'K', 'A']
         hand = self.hand(game_state)
         if self.ifpairhand(game_state) == "pairinhand":
             return "pairinhand"
