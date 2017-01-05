@@ -104,6 +104,8 @@ class Player:
         #     return 200
         elif self.ifhighcards(game_state) == "fold":
             return 0
+        else:
+            return 0
 
 
 
