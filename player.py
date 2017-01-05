@@ -61,7 +61,7 @@
 #                     "suit": "hearts"                # Suit of the card. Possible values are: clubs,spades,hearts,diamonds
 #                 },
 #                 {
-#                     "rank": "10",
+#                     "rank": "8",
 #                     "suit": "spades"
 #                 }
 #             ]
@@ -81,25 +81,28 @@
 #             "suit": "spades"
 #         },
 #         {
-
+#
 #             "rank": "A",
-
-
+#
+#
 #             "suit": "hearts"
 #         },
 #         {
-#             "rank": "4",
+#             "rank": "8",
 #             "suit": "clubs"
 #         }
 #     ]
 # }
 
 class Player:
-    VERSION = "Tami joined the dark side!"
+    VERSION = "destroying team orange HAHAHAHA"
 
     def betRequest(self, game_state):
         if self.if_drill(game_state) == "drill":
             # print("drill")
+            return 1000
+        elif self.two_pairs(game_state) == True:
+            # print("two pairs")
             return 1000
         elif self.ifpair(game_state) == "pair":
             # print("pair")
@@ -114,7 +117,7 @@ class Player:
         #     print("10")
         #     return 200
         else:
-            # print("nothing")
+            print("nothing")
             return 0
 
 
@@ -195,6 +198,6 @@ class Player:
 
 
 
-
+#
 # x = Player()
-# x.two_pairs(gamestate)
+# x.betRequest(gamestate)
