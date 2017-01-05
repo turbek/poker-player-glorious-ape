@@ -105,7 +105,7 @@ class Player:
             else:
                 print("else")
                 return 0
-        elif len(game_state['community_cards']) > 3:
+        elif len(game_state['community_cards']) >= 3:
             if self.if_drill(game_state) == "drill":
                 # print("drill")
                 return 1000
