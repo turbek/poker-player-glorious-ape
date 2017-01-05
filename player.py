@@ -98,7 +98,7 @@ class Player:
     VERSION = "destroying team orange HAHAHAHA"
 
     def betRequest(self, game_state):
-        if len(game_state['community_cards']) == 3:
+        if len(game_state['community_cards']) == 0:
             if self.preflop(game_state) == "highcards" or "pairinhand":
                 return int(game_state['current_buy_in'])*1.5
         elif len(game_state['community_cards']) > 3:
