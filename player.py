@@ -116,7 +116,6 @@ class Player:
         return player['hole_cards']
 
     def community_cards(self, game_state):
-        print game_state['community_cards']
         return game_state['community_cards']
 
 
