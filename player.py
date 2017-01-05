@@ -99,6 +99,8 @@ class Player:
             if player['name'] == 'Glorious Ape':
                 if player['hole_cards'][0]['rank'] == player['hole_cards'][1]['rank']:
                     return 1000
+                else:
+                    return 0
 
 
     def showdown(self, game_state):
