@@ -111,6 +111,8 @@ class Player:
                     return 0
             elif self.preflop(game_state) == "pairinhand":
                 return int(game_state['current_buy_in']) + int(game_state['minimum_raise'])
+            elif self.ifpairhand(game_state) == "mediumhand":
+                return int(game_state['small_blind'] * 2)
             elif self.preflop(game_state) == "fold":
                 return 0
             else:
